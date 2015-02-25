@@ -9,11 +9,14 @@ QT       += core gui network widgets webkitwidgets winextras
 TARGET = Slack_Qt
 TEMPLATE = app
 
+include(plugins/qtwebkit/qtwebkit-plugins.pri)
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    mainapplication.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    mainapplication.h
 
 FORMS    += mainwindow.ui
 

@@ -1,8 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QStandardPaths>
 #include <QWebPage>
 #include <QtCore>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -10,28 +12,41 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QtWin::enableBlurBehindWindow(this);
+    QString path(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
+    qDebug() << "Cache path" << path;
 
-    ui->webView->page()->settings()->enablePersistentStorage("G:\\Devel\\lol");
+    ui->webView->page()->settings()->enablePersistentStorage(path);
     ui->webView->settings()->setThirdPartyCookiePolicy(
                 QWebSettings::ThirdPartyCookiePolicy::AlwaysAllowThirdPartyCookies);
 
-    QIcon icon(QPixmap(QString::fromUtf8("://images/png/icon32.png")));
-    trayIcon = new QSystemTrayIcon(icon, this);
+    QIcon smallIcon(QPixmap(QString::fromUtf8("://images/png/icon32.png")));
+    QIcon bigIcon(QPixmap(QString::fromUtf8("://images/png/Slack.png")));
+
+    trayIcon = new QSystemTrayIcon(smallIcon, this);
     trayIcon->show();
-    setWindowIcon(icon);
+    setWindowIcon(bigIcon);
+    setWindowTitle(QString::fromUtf8("Slack"));
 
     connect(ui->webView->page(), SIGNAL(featurePermissionRequested(QWebFrame*,QWebPage::Feature)),
             this, SLOT(featureRequest(QWebFrame*,QWebPage::Feature)));
-
     connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason )),
             this, SLOT(trayActivated(QSystemTrayIcon::ActivationReason)));
+
+    button = new QWinTaskbarButton(this);
+    button->setWindow(this->windowHandle());
+    button->setOverlayIcon(QIcon("://images/png/Slack.png"));
+
+    progress = button->progress();
+    progress->setVisible(true);
+    progress->setValue(100);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
     delete trayIcon;
+    delete progress;
+    delete button;
 }
 
 void MainWindow::featureRequest(QWebFrame *frame, QWebPage::Feature feature)
@@ -58,4 +73,14 @@ void MainWindow::trayActivated(QSystemTrayIcon::ActivationReason reason)
         }
         default: break;
     }
+}
+
+void MainWindow::hide(){
+    QMainWindow::hide();
+    progress->setValue(0);
+}
+
+void MainWindow::show(){
+    QMainWindow::show();
+    progress->setValue(100);
 }
