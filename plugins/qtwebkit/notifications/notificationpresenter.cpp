@@ -16,7 +16,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 * ============================================================ */
 #include "notificationpresenter.h"
-//#include <mainapplication.h>
+#include <mainapplication.h>
 #include <QDebug>
 
 NotificationPresenter::NotificationPresenter()
@@ -32,8 +32,6 @@ void NotificationPresenter::showNotification(const QWebNotificationData* data)
     }
 
     qDebug() << "AASDDDDDDD!!!!!!!!!!!!!!!!!!" << data->title() << data->message();
-
-//    mApp->desktopNotifications()->showNotification(QPixmap(":qupzilla.png"),
-//            data->title(),
-//            data->message());
+    mApp->showNotification(data->title(), data->message());
+    qDebug() << data->iconUrl();
 }

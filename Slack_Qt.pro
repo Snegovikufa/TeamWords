@@ -13,12 +13,21 @@ include(plugins/qtwebkit/qtwebkit-plugins.pri)
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    mainapplication.cpp
+    mainapplication.cpp \
+    cookiejar.cpp \
+    autosaver.cpp \
+    networkaccessmanager.cpp \
+    teamform.cpp
 
 HEADERS  += mainwindow.h \
-    mainapplication.h
+    mainapplication.h \
+    cookiejar.h \
+    autosaver.h \
+    networkaccessmanager.h \
+    teamform.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    teamform.ui
 
 RESOURCES += \
     icons.qrc

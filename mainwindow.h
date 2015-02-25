@@ -8,11 +8,17 @@
 #include <QWinTaskbarProgress>
 #include <QtWinExtras>
 #include <QWebNotificationData>
+#include <QtNetwork/QNetworkAccessManager>
 #include "qwebkitplatformplugin.h"
+#include "cookiejar.h"
+#include "networkaccessmanager.h"
 
 namespace Ui {
 class MainWindow;
 }
+
+class CookieJar;
+class NetworkAccessManager;
 
 class MainWindow : public QMainWindow
 {
@@ -23,17 +29,26 @@ public:
 
     virtual void show();
     virtual void hide();
+
+    void showNotification(QString title, QString message);
+
     ~MainWindow();
+
+//    static NetworkAccessManager *networkAccessManager();
 
 public slots:
     void featureRequest(QWebFrame *frame, QWebPage::Feature feature);
     void trayActivated(QSystemTrayIcon::ActivationReason reason);
 
 private:
+    CookieJar *jar;
     Ui::MainWindow *ui;
     QSystemTrayIcon *trayIcon;
-    QWinTaskbarProgress *progress;
     QWinTaskbarButton *button;
+    QWinTaskbarProgress* progress;
+
+    const QString teamLoginUrl = QString("https://%1.slack.com");
+    const QString loginUrl = QString("https://slack.com/signin");
 };
 
 #endif // MAINWINDOW_H

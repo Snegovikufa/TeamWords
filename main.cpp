@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "mainapplication.h"
-
-#define mApp MainApplication::instance()
+#include "teamform.h"
 
 int main(int argc, char *argv[])
 {
@@ -9,8 +8,16 @@ int main(int argc, char *argv[])
 
     MainApplication a(argc, argv);
 
-    MainWindow w;
-    w.show();
+    QSettings settings;
+    QVariant team_domain = settings.value("team_domain");
+    if (team_domain.isValid()){
+        qDebug() << "team_domain:" << team_domain;
+        a.getMainWindow()->show();
+    } else{
+        qDebug() << "no team_domain specified";
+        TeamForm* teamform = new TeamForm();
+        teamform->show();
+    }
 
     return a.exec();
 }

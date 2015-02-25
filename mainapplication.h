@@ -2,30 +2,25 @@
 #define MAINAPPLICATION_H
 
 #include <QApplication>
+#include "mainwindow.h"
 
-#if defined(Q_OS_WIN)
-#  if !defined(QT_QTSINGLEAPPLICATION_EXPORT) && !defined(QT_QTSINGLEAPPLICATION_IMPORT)
-#    define QT_QTSINGLEAPPLICATION_EXPORT
-#  elif defined(QT_QTSINGLEAPPLICATION_IMPORT)
-#    if defined(QT_QTSINGLEAPPLICATION_EXPORT)
-#      undef QT_QTSINGLEAPPLICATION_EXPORT
-#    endif
-#    define QT_QTSINGLEAPPLICATION_EXPORT __declspec(dllimport)
-#  elif defined(QT_QTSINGLEAPPLICATION_EXPORT)
-#    undef QT_QTSINGLEAPPLICATION_EXPORT
-#    define QT_QTSINGLEAPPLICATION_EXPORT __declspec(dllexport)
-#  endif
-#else
-#  define QT_QTSINGLEAPPLICATION_EXPORT
-#endif
+#define mApp ((MainApplication*)MainApplication::instance())
 
-class QT_QTSINGLEAPPLICATION_EXPORT MainApplication : public QApplication
+class MainApplication : public QApplication
 {
     Q_OBJECT
 
 public:
     explicit MainApplication(int &argc, char** argv);
+
+    void setMainWindow(MainWindow* window);
+    MainWindow* getMainWindow();
+
+    void showNotification(QString title, QString message);
+
     ~MainApplication();
+private:
+    MainWindow *m_window = nullptr;
 };
 
 #endif // MAINAPPLICATION_H

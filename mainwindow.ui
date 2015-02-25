@@ -37,7 +37,7 @@
       </property>
       <property name="url">
        <url>
-        <string>https://slack.com/signin</string>
+        <string>about:blank</string>
        </url>
       </property>
      </widget>
