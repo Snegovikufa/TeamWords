@@ -12,6 +12,8 @@ TeamForm::TeamForm(QWidget *parent) :
 
     connect(ui->lineEdit, SIGNAL(textChanged(QString)), this, SLOT(onTextChanged(QString)));
     connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(onClick()));
+
+    setWindowIcon(QIcon(QString("://images/png/icon32.png")));
 }
 
 TeamForm::~TeamForm()

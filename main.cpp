@@ -7,6 +7,7 @@ int main(int argc, char *argv[])
     Q_INIT_RESOURCE(icons);
 
     MainApplication a(argc, argv);
+    a.setWindowIcon(QIcon(QString("://images/png/icon32.png")));
 
     QSettings settings;
     QVariant team_domain = settings.value("team_domain");
