@@ -9,6 +9,7 @@ QT       += core gui network widgets webkitwidgets winextras
 TARGET = Slack_Qt
 TEMPLATE = app
 
+include(asemantools/asemantools.pri)
 include(plugins/qtwebkit/qtwebkit-plugins.pri)
 
 SOURCES += main.cpp\

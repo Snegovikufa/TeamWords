@@ -47,13 +47,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason )),
             this, SLOT(trayActivated(QSystemTrayIcon::ActivationReason)));
 
+
     button = new QWinTaskbarButton(this);
     button->setWindow(this->windowHandle());
     button->setOverlayIcon(QIcon("://images/png/Slack.png"));
 
     progress = button->progress();
     progress->setVisible(true);
-    progress->setValue(0);
+    progress->setValue(100);
 }
 
 MainWindow::~MainWindow()
@@ -91,18 +92,30 @@ void MainWindow::trayActivated(QSystemTrayIcon::ActivationReason reason)
     }
 }
 
-void MainWindow::hide(){
-    QMainWindow::hide();
-    progress->setValue(0);
-}
-
 void MainWindow::showNotification(QString title, QString message)
 {
     progress->setValue(100);
-    QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::MessageIcon::Information;
-    trayIcon->showMessage(title, message, icon, 1000000);
+
+    item = new AsemanNativeNotificationItem();
+    item->setTitle(title);
+    item->setBody(message);
+    item->setIcon("://images/png/Slack.png");
+    item->setTimeOut(100000);
+    item->show();
 }
 
-void MainWindow::show(){
-    QMainWindow::show();
+void MainWindow::hideEvent(QHideEvent *event){
+    QMainWindow::hideEvent(event);
+    progress->setValue(0);
+}
+
+void MainWindow::showEvent(QShowEvent *event){
+    QMainWindow::showEvent(event);
+
+    if (true)
+    {
+        progress->setValue(100);
+    } else {
+        progress->setValue(0);
+    }
 }
