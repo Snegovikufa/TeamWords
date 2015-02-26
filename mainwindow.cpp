@@ -38,13 +38,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->webView->page()->networkAccessManager()->setCookieJar(jar);
     ui->webView->setUrl(url);
 
-    QIcon smallIcon(QPixmap(QString::fromUtf8("://images/png/icon32.png")));
-    QIcon bigIcon(QPixmap(QString::fromUtf8("://images/png/Slack.png")));
+    QIcon smallIcon(QPixmap(QString("://images/png/icon32.png")));
+    QIcon bigIcon(QPixmap(QString("://images/png/Slack.png")));
 
     trayIcon = new QSystemTrayIcon(smallIcon, this);
     trayIcon->show();
     setWindowIcon(bigIcon);
-    setWindowTitle(QString::fromUtf8("Slack"));
+    setWindowTitle(QString("Slack"));
 
     ui->webView->setContextMenuPolicy(Qt::ContextMenuPolicy::PreventContextMenu);
     connect(ui->webView->page(), SIGNAL(featurePermissionRequested(QWebFrame*,QWebPage::Feature)),

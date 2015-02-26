@@ -4,9 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network widgets webkitwidgets winextras
-
-TARGET = Slack_Qt
+QT += core gui network widgets webkitwidgets winextras
+TARGET = slack
 TEMPLATE = app
 
 include(asemantools/asemantools.pri)
