@@ -36,4 +36,5 @@ void TeamForm::onClick()
     settings.setValue("team_domain", ui->lineEdit->text());
 
     ((MainApplication*) mApp->instance())->getMainWindow()->show();
+    close();
 }
