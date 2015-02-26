@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT += core gui network widgets webkitwidgets winextras
-TARGET = slack
+TARGET = slacker
 TEMPLATE = app
 
 include(asemantools/asemantools.pri)
@@ -52,3 +52,5 @@ DISTFILES += \
     fonts/Lato-SemiboldItalic.ttf \
     fonts/Lato-Thin.ttf \
     fonts/Lato-ThinItalic.ttf
+
+win32::RC_ICONS += images/ico/slack.ico
