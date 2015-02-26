@@ -10,8 +10,16 @@
     <height>128</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <pointsize>20</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Sign in</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -37,6 +45,9 @@
            <family>Segoe UI</family>
            <pointsize>16</pointsize>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border: 1px solid #C5C5C5; border-radius: 4px; padding: 0 8px; selection-border-color:  rgb(39, 128, 248);</string>
          </property>
          <property name="placeholderText">
           <string>teamdomain</string>
@@ -72,8 +83,23 @@
          <height>40</height>
         </size>
        </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI</family>
+         <pointsize>18</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton  { background-color: #439FE0; border: none; color: white; }</string>
+       </property>
        <property name="text">
-        <string>Continue</string>
+        <string>Continue →</string>
+       </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
        </property>
       </widget>
      </item>

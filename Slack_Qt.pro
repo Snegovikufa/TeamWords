@@ -34,4 +34,22 @@ RESOURCES += \
     icons.qrc
 
 DISTFILES += \
-    readme.md
+    readme.md \
+    fonts/Lato-Black.ttf \
+    fonts/Lato-BlackItalic.ttf \
+    fonts/Lato-Bold.ttf \
+    fonts/Lato-BoldItalic.ttf \
+    fonts/Lato-Hairline.ttf \
+    fonts/Lato-HairlineItalic.ttf \
+    fonts/Lato-Heavy.ttf \
+    fonts/Lato-HeavyItalic.ttf \
+    fonts/Lato-Italic.ttf \
+    fonts/Lato-Light.ttf \
+    fonts/Lato-LightItalic.ttf \
+    fonts/Lato-Medium.ttf \
+    fonts/Lato-MediumItalic.ttf \
+    fonts/Lato-Regular.ttf \
+    fonts/Lato-Semibold.ttf \
+    fonts/Lato-SemiboldItalic.ttf \
+    fonts/Lato-Thin.ttf \
+    fonts/Lato-ThinItalic.ttf

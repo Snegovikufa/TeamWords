@@ -5,7 +5,7 @@ MainApplication::MainApplication(int &argc, char** argv)
 {
     QCoreApplication::setOrganizationName("MiT-Ufa");
     QCoreApplication::setOrganizationDomain("mit-ufa.com");
-    QCoreApplication::setApplicationName("Slack Desktop UI");
+    QCoreApplication::setApplicationName("Slacker");
 }
 
 void MainApplication::setMainWindow(MainWindow *window)

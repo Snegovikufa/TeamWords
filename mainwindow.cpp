@@ -5,6 +5,9 @@
 #include <QWebPage>
 #include <QtCore>
 #include <QtNetwork/QNetworkAccessManager>
+#include <QWebSettings>
+#include <QFontDatabase>
+#include <QFileInfo>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -12,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    applyNativeFont();
 
     QSettings settings;
     QVariant value = settings.value("team_domain");
@@ -42,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowIcon(bigIcon);
     setWindowTitle(QString::fromUtf8("Slack"));
 
+    ui->webView->setContextMenuPolicy(Qt::ContextMenuPolicy::PreventContextMenu);
     connect(ui->webView->page(), SIGNAL(featurePermissionRequested(QWebFrame*,QWebPage::Feature)),
             this, SLOT(featureRequest(QWebFrame*,QWebPage::Feature)));
     connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason )),
@@ -68,7 +73,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::featureRequest(QWebFrame *frame, QWebPage::Feature feature)
 {
-    qDebug() << feature << QWebPage::Feature::Notifications;
     if (feature == QWebPage::Feature::Notifications)
     {
         ui->webView->page()->setFeaturePermission(frame, feature,
@@ -90,6 +94,30 @@ void MainWindow::trayActivated(QSystemTrayIcon::ActivationReason reason)
     }
     default: break;
     }
+}
+
+void MainWindow::applyNativeFont()
+{
+//    QFontDatabase::addApplicationFont(QString(":/fonts/Lato-Black.ttf"));
+//    QFontDatabase::addApplicationFont(QString(":/fonts/Lato-BlackItalic.ttf"));
+//    QFontDatabase::addApplicationFont(QString(":/fonts/Lato-Bold.ttf"));
+//    QFontDatabase::addApplicationFont(QString(":/fonts/Lato-BoldItalic.ttf"));
+//    QFontDatabase::addApplicationFont(QString(":/fonts/Lato-Hairline.ttf"));
+//    QFontDatabase::addApplicationFont(QString(":/fonts/Lato-HairlineItalic.ttf"));
+//    QFontDatabase::addApplicationFont(QString(":/fonts/Lato-Italic.ttf"));
+//    QFontDatabase::addApplicationFont(QString(":/fonts/Lato-Light.ttf"));
+//    QFontDatabase::addApplicationFont(QString(":/fonts/Lato-LightItalic.ttf"));
+//    QFontDatabase::addApplicationFont(QString(":/fonts/Lato-Medium.ttf"));
+//    QFontDatabase::addApplicationFont(QString(":/fonts/Lato-MediumItalic.ttf"));
+//    QFontDatabase::addApplicationFont(QString(":/fonts/Lato-Regular.ttf"));
+//    QFontDatabase::addApplicationFont(QString(":/fonts/Lato-Semibold.ttf"));
+//    QFontDatabase::addApplicationFont(QString(":/fonts/Lato-SemiboldItalic.ttf"));
+//    QFontDatabase::addApplicationFont(QString(":/fonts/Lato-Thin.ttf"));
+//    QFontDatabase::addApplicationFont(QString(":/fonts/Lato-ThinItalic.ttf"));
+
+    QWebSettings* settings = ui->webView->page()->settings();
+    settings->setFontFamily(QWebSettings::StandardFont, "Segoe UI");
+    settings->setFontSize(QWebSettings::DefaultFontSize, 16);
 }
 
 void MainWindow::showNotification(QString title, QString message)

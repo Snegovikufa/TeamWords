@@ -31,7 +31,11 @@ void NotificationPresenter::showNotification(const QWebNotificationData* data)
         return;
     }
 
-    qDebug() << "AASDDDDDDD!!!!!!!!!!!!!!!!!!" << data->title() << data->message();
+    qDebug() << "Message received.";
+    qDebug() << "Title:";
+    qDebug() << data->title();
+    qDebug() << "Message:";
+    qDebug() << data->message();
     mApp->showNotification(data->title(), data->message());
     qDebug() << data->iconUrl();
 }

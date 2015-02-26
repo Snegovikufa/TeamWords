@@ -51,6 +51,8 @@ private:
 
     const QString teamLoginUrl = QString("https://%1.slack.com");
     const QString loginUrl = QString("https://slack.com/signin");
+
+    void applyNativeFont();
 };
 
 #endif // MAINWINDOW_H
