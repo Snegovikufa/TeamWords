@@ -159,7 +159,7 @@ AsemanNativeNotificationItem::AsemanNativeNotificationItem(QWidget *parent) :
     p->layout->setContentsMargins(SHADOW_SIZE+10,SHADOW_SIZE+8,SHADOW_SIZE+10,SHADOW_SIZE+8);
     p->layout->setSpacing(1);
 
-    setWindowFlags( Qt::Window | Qt::FramelessWindowHint);
+    setWindowFlags( Qt::Window | Qt::FramelessWindowHint | Qt::ToolTip );
     setAttribute(Qt::WA_TranslucentBackground);
     setAttribute(Qt::WA_NoSystemBackground);
     setAttribute(Qt::WA_DeleteOnClose);
