@@ -8,6 +8,7 @@
 #include <QWebSettings>
 #include <QFontDatabase>
 #include <QFileInfo>
+#include <QMessageBox>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -33,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->webView->page()->settings()->enablePersistentStorage(path);
     ui->webView->settings()->setThirdPartyCookiePolicy(
                 QWebSettings::ThirdPartyCookiePolicy::AlwaysAllowThirdPartyCookies);
+    ui->webView->settings()->setAttribute(QWebSettings::NotificationsEnabled, true);
 
     jar = new CookieJar(ui->webView);
     ui->webView->page()->networkAccessManager()->setCookieJar(jar);
@@ -47,6 +49,7 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(featureRequest(QWebFrame*,QWebPage::Feature)));
     connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason )),
             this, SLOT(trayActivated(QSystemTrayIcon::ActivationReason)));
+    connect(ui->webView, SIGNAL(urlChanged(QUrl)), this, SLOT(onUrlChanged(QUrl)));
 
 
     button = new QWinTaskbarButton(this);
@@ -62,12 +65,31 @@ MainWindow::~MainWindow()
     delete button;
 }
 
+void MainWindow::onUrlChanged(QUrl url){
+    qDebug() << url.host();
+
+    if (url.host().endsWith(".slack.com", Qt::CaseSensitive)){
+        ui->webView->page()->setFeaturePermission(ui->webView->page()->mainFrame(), QWebPage::Feature::Notifications,
+                                                  QWebPage::PermissionPolicy::PermissionGrantedByUser);
+    }
+}
+
 void MainWindow::featureRequest(QWebFrame *frame, QWebPage::Feature feature)
 {
+    qDebug() << frame->url();
+
     if (feature == QWebPage::Feature::Notifications)
     {
-        ui->webView->page()->setFeaturePermission(frame, feature,
+        int result = QMessageBox::question(this,
+                              QString("Notification permission"),
+                              QString("%1\nasks for notifications persmission. Should I allow?").arg(frame->url().toString()),
+                              QMessageBox::StandardButton::Ok, QMessageBox::Cancel);
+
+        if (result == QMessageBox::StandardButton::Ok)
+        {
+            ui->webView->page()->setFeaturePermission(frame, feature,
                                                   QWebPage::PermissionPolicy::PermissionGrantedByUser);
+        }
     }
 }
 

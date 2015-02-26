@@ -40,6 +40,7 @@ public:
 public slots:
     void featureRequest(QWebFrame *frame, QWebPage::Feature feature);
     void trayActivated(QSystemTrayIcon::ActivationReason reason);
+    void onUrlChanged(QUrl url);
 
 private:
     CookieJar *jar;
