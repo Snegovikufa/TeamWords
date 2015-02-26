@@ -46,7 +46,6 @@ private:
     Ui::MainWindow *ui;
     QSystemTrayIcon *trayIcon;
     QWinTaskbarButton *button;
-    QWinTaskbarProgress* progress;
     AsemanNativeNotificationItem *item;
 
     const QString teamLoginUrl = QString("https://%1.slack.com");

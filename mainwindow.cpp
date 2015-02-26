@@ -52,17 +52,12 @@ MainWindow::MainWindow(QWidget *parent) :
     button = new QWinTaskbarButton(this);
     button->setWindow(this->windowHandle());
     button->setOverlayIcon(QIcon("://images/png/Slack.png"));
-
-    progress = button->progress();
-    progress->setVisible(true);
-    progress->setValue(100);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
     delete trayIcon;
-    delete progress;
     delete jar;
     delete button;
 }
@@ -118,28 +113,21 @@ void MainWindow::applyNativeFont()
 
 void MainWindow::showNotification(QString title, QString message)
 {
-    progress->setValue(100);
-
     item = new AsemanNativeNotificationItem();
     item->setTitle(title);
     item->setBody(message);
     item->setIcon("://images/png/Slack.png");
     item->setTimeOut(100000);
     item->show();
+
+    QApplication::alert(this);
 }
 
 void MainWindow::hideEvent(QHideEvent *event){
     QMainWindow::hideEvent(event);
-    progress->setValue(0);
+
 }
 
 void MainWindow::showEvent(QShowEvent *event){
     QMainWindow::showEvent(event);
-
-    if (true)
-    {
-        progress->setValue(100);
-    } else {
-        progress->setValue(0);
-    }
 }
