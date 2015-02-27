@@ -19,9 +19,11 @@ MainWindow::MainWindow(QWidget *parent) :
     createTray();
     setIcons();
 
+#ifdef Q_OS_WIN32
     button = new QWinTaskbarButton(this);
     button->setWindow(this->windowHandle());
     button->setOverlayIcon(QIcon("://images/png/Slack.png"));
+#endif
 }
 
 MainWindow::~MainWindow()

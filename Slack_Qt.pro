@@ -4,9 +4,25 @@
 #
 #-------------------------------------------------
 
-QT += core gui network widgets webkitwidgets winextras
+message(Qt version: $$[QT_VERSION])
+message(Qt is installed in $$[QT_INSTALL_PREFIX])
+message(Header files: $$[QT_INSTALL_HEADERS])
+message(Libraries: $$[QT_INSTALL_LIBS])
+message(Binary files (executables): $$[QT_INSTALL_BINS])
+message(Plugins: $$[QT_INSTALL_PLUGINS])
+message(Data files: $$[QT_INSTALL_DATA])
+message(Translation files: $$[QT_INSTALL_TRANSLATIONS])
+message(Settings: $$[QT_INSTALL_SETTINGS])
+
+QT += core gui network widgets webkitwidgets
+
+win32 {
+    QT += winextras
+}
+
 TARGET = slacker
 TEMPLATE = app
+CONFIG += c++11
 
 include(asemantools/asemantools.pri)
 include(plugins/qtwebkit/qtwebkit-plugins.pri)

@@ -4,15 +4,19 @@
 #include <QMainWindow>
 #include <QtWebKitWidgets>
 #include <QSystemTrayIcon>
-#include <QWinTaskbarButton>
-#include <QWinTaskbarProgress>
-#include <QtWinExtras>
 #include <QWebNotificationData>
 #include <QtNetwork/QNetworkAccessManager>
 #include "qwebkitplatformplugin.h"
 #include "cookiejar.h"
 #include "webview.h"
 #include "asemantools/asemannativenotificationitem.h"
+
+#ifdef Q_OS_WIN32
+#include <QWinTaskbarButton>
+#include <QWinTaskbarProgress>
+#include <QtWinExtras>
+#endif
+
 
 class CookieJar;
 class NetworkAccessManager;
@@ -39,9 +43,13 @@ public slots:
 
 private:
     WebView *webView;
-    QSystemTrayIcon *trayIcon;
-    QWinTaskbarButton *button;
     AsemanNativeNotificationItem *item;
+
+#ifdef Q_OS_WIN32
+    QWinTaskbarButton *button;
+#endif
+
+    QSystemTrayIcon *trayIcon;
 
     const QString teamLoginUrl = QString("https://%1.slack.com");
     const QString loginUrl = QString("https://slack.com/signin");

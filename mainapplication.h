@@ -20,7 +20,7 @@ public:
 
     ~MainApplication();
 private:
-    MainWindow *m_window = nullptr;
+    MainWindow *m_window = 0;
 };
 
 #endif // MAINAPPLICATION_H
