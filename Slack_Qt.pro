@@ -16,15 +16,17 @@ SOURCES += main.cpp\
     mainapplication.cpp \
     cookiejar.cpp \
     autosaver.cpp \
-    networkaccessmanager.cpp \
-    teamform.cpp
+    teamform.cpp \
+    webview.cpp \
+    webpage.cpp
 
 HEADERS  += mainwindow.h \
     mainapplication.h \
     cookiejar.h \
     autosaver.h \
-    networkaccessmanager.h \
-    teamform.h
+    teamform.h \
+    webview.h \
+    webpage.h
 
 FORMS    += mainwindow.ui \
     teamform.ui

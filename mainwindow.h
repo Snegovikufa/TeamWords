@@ -11,12 +11,8 @@
 #include <QtNetwork/QNetworkAccessManager>
 #include "qwebkitplatformplugin.h"
 #include "cookiejar.h"
-#include "networkaccessmanager.h"
+#include "webview.h"
 #include "asemantools/asemannativenotificationitem.h"
-
-namespace Ui {
-class MainWindow;
-}
 
 class CookieJar;
 class NetworkAccessManager;
@@ -35,7 +31,6 @@ public:
 
     ~MainWindow();
 
-//    static NetworkAccessManager *networkAccessManager();
 
 public slots:
     void featureRequest(QWebFrame *frame, QWebPage::Feature feature);
@@ -43,8 +38,7 @@ public slots:
     void onUrlChanged(QUrl url);
 
 private:
-    CookieJar *jar;
-    Ui::MainWindow *ui;
+    WebView *webView;
     QSystemTrayIcon *trayIcon;
     QWinTaskbarButton *button;
     AsemanNativeNotificationItem *item;
@@ -52,7 +46,10 @@ private:
     const QString teamLoginUrl = QString("https://%1.slack.com");
     const QString loginUrl = QString("https://slack.com/signin");
 
-    void applyNativeFont();
+    void createTray();
+    void setIcons();
+    void setUrl();
+    void createWebView();
 };
 
 #endif // MAINWINDOW_H
