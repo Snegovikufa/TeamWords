@@ -24,6 +24,8 @@ MainWindow::MainWindow(QWidget *parent) :
     button->setWindow(this->windowHandle());
     button->setOverlayIcon(QIcon("://images/png/Slack.png"));
 #endif
+
+    notification = new AsemanNativeNotification(this);
 }
 
 MainWindow::~MainWindow()
@@ -121,13 +123,7 @@ void MainWindow::trayActivated(QSystemTrayIcon::ActivationReason reason)
 
 void MainWindow::showNotification(QString title, QString message)
 {
-    item = new AsemanNativeNotificationItem();
-    item->setTitle(title);
-    item->setBody(message);
-    item->setIcon("://images/png/Slack.png");
-    item->setTimeOut(100000);
-    item->show();
-
+    notification->sendNotify(title, message, "://images/png/Slack.png", 0, 100000);
     QApplication::alert(this);
 }
 

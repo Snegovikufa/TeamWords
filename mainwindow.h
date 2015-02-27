@@ -9,7 +9,7 @@
 #include "qwebkitplatformplugin.h"
 #include "cookiejar.h"
 #include "webview.h"
-#include "asemantools/asemannativenotificationitem.h"
+#include "asemantools/asemannativenotification.h"
 
 #ifdef Q_OS_WIN32
 #include <QWinTaskbarButton>
@@ -43,7 +43,7 @@ public slots:
 
 private:
     WebView *webView;
-    AsemanNativeNotificationItem *item;
+    AsemanNativeNotification *notification;
 
 #ifdef Q_OS_WIN32
     QWinTaskbarButton *button;
