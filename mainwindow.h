@@ -28,8 +28,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
 
-    virtual void showEvent(QShowEvent *event);
-    virtual void hideEvent(QHideEvent *event);
+    virtual void showEvent(QShowEvent *event)  override;
+    virtual void hideEvent(QHideEvent *event)  override;
+    virtual void closeEvent(QCloseEvent *event) override;
 
     void showNotification(QString title, QString message);
 
@@ -58,6 +59,7 @@ private:
     void setIcons();
     void setUrl();
     void createWebView();
+    void readSettings();
 };
 
 #endif // MAINWINDOW_H

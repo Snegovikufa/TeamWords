@@ -26,10 +26,23 @@ MainWindow::MainWindow(QWidget *parent) :
 #endif
 
     notification = new AsemanNativeNotification(this);
+
+    readSettings();
 }
 
 MainWindow::~MainWindow()
 {
+}
+
+void MainWindow::readSettings()
+{
+    QRect rec = QApplication::desktop()->screenGeometry();
+    this->resize(rec.width() * 0.75, rec.height() * 0.75);
+    this->setMinimumSize(600, 300);
+
+    QSettings settings;
+    restoreGeometry(settings.value("mainwindow/geometry").toByteArray());
+    restoreState(settings.value("mainwindow/windowState").toByteArray());
 }
 
 void MainWindow::createWebView()
@@ -134,4 +147,12 @@ void MainWindow::hideEvent(QHideEvent *event){
 
 void MainWindow::showEvent(QShowEvent *event){
     QMainWindow::showEvent(event);
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    QSettings settings;
+    settings.setValue("mainwindow/geometry", saveGeometry());
+    settings.setValue("mainwindow/windowState", saveState());
+    QMainWindow::closeEvent(event);
 }
