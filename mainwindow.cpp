@@ -154,5 +154,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
     QSettings settings;
     settings.setValue("mainwindow/geometry", saveGeometry());
     settings.setValue("mainwindow/windowState", saveState());
+    trayIcon->hide();
     QMainWindow::closeEvent(event);
 }
