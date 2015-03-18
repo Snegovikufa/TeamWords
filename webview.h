@@ -8,21 +8,21 @@
 
 class WebView : public QWebView
 {
-    Q_OBJECT
+        Q_OBJECT
 
-public:
-    explicit WebView(QWidget* parent = 0, CookieJar *cookieJar = 0);
-    ~WebView();
+    public:
+        explicit WebView(QWidget *parent = 0, CookieJar *cookieJar = 0);
+        ~WebView();
 
-protected:
-    QString storagePath;
+    protected:
+        QString storagePath;
 
-private:
-    void setStoragePath();
-    void setCookies();
+    private:
+        void setStoragePath();
+        void setCookies();
 
-    CookieJar *cookieJar;
-    QUrl lastUrl;
+        CookieJar *cookieJar;
+        QUrl lastUrl;
 };
 
 #endif // WEBVIEW_H

@@ -43,24 +43,25 @@
     It will wait several seconds after changed() to combining multiple changes and
     prevent continuous writing to disk.
   */
-class AutoSaver : public QObject {
+class AutoSaver : public QObject
+{
 
-Q_OBJECT
+        Q_OBJECT
 
-public:
-    AutoSaver(QObject *parent);
-    ~AutoSaver();
-    void saveIfNeccessary();
+    public:
+        AutoSaver(QObject *parent);
+        ~AutoSaver();
+        void saveIfNeccessary();
 
-public slots:
-    void changeOccurred();
+    public slots:
+        void changeOccurred();
 
-protected:
-    void timerEvent(QTimerEvent *event);
+    protected:
+        void timerEvent(QTimerEvent *event);
 
-private:
-    QBasicTimer m_timer;
-    QTime m_firstChange;
+    private:
+        QBasicTimer m_timer;
+        QTime m_firstChange;
 
 };
 

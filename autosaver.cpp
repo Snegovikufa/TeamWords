@@ -57,18 +57,24 @@ void AutoSaver::changeOccurred()
     if (m_firstChange.isNull())
         m_firstChange.start();
 
-    if (m_firstChange.elapsed() > MAXWAIT) {
+    if (m_firstChange.elapsed() > MAXWAIT)
+    {
         saveIfNeccessary();
-    } else {
+    }
+    else
+    {
         m_timer.start(AUTOSAVE_IN, this);
     }
 }
 
 void AutoSaver::timerEvent(QTimerEvent *event)
 {
-    if (event->timerId() == m_timer.timerId()) {
+    if (event->timerId() == m_timer.timerId())
+    {
         saveIfNeccessary();
-    } else {
+    }
+    else
+    {
         QObject::timerEvent(event);
     }
 }
@@ -80,7 +86,9 @@ void AutoSaver::saveIfNeccessary()
 
     m_timer.stop();
     m_firstChange = QTime();
-    if (!QMetaObject::invokeMethod(parent(), "save", Qt::DirectConnection)) {
+
+    if (!QMetaObject::invokeMethod(parent(), "save", Qt::DirectConnection))
+    {
         qWarning() << "AutoSaver: error invoking slot save() on parent";
     }
 }

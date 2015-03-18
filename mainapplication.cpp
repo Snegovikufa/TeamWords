@@ -1,6 +1,6 @@
 #include "mainapplication.h"
 
-MainApplication::MainApplication(int &argc, char** argv)
+MainApplication::MainApplication(int &argc, char **argv)
     : QApplication(argc, argv)
 {
     QCoreApplication::setOrganizationName("MiT-Ufa");
@@ -15,7 +15,8 @@ void MainApplication::setMainWindow(MainWindow *window)
 
 MainWindow *MainApplication::getMainWindow()
 {
-    if (!m_window){
+    if (!m_window)
+    {
         m_window = new MainWindow();
     }
 

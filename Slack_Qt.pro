@@ -69,6 +69,7 @@ DISTFILES += \
     fonts/Lato-Semibold.ttf \
     fonts/Lato-SemiboldItalic.ttf \
     fonts/Lato-Thin.ttf \
-    fonts/Lato-ThinItalic.ttf
+    fonts/Lato-ThinItalic.ttf \
+    .astylerc
 
 win32::RC_ICONS += images/ico/slack.ico

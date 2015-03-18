@@ -5,12 +5,10 @@
 
 WebPage::WebPage(QObject *parent) : QWebPage(parent)
 {
-
 }
 
 WebPage::~WebPage()
 {
-
 }
 
 bool WebPage::acceptNavigationRequest(QWebFrame *frame, const QNetworkRequest &request, QWebPage::NavigationType type)

@@ -5,12 +5,12 @@
 
 class WebPage : public QWebPage
 {
-    Q_OBJECT
-public:
-    explicit WebPage(QObject *parent = 0);
-    ~WebPage();
-protected:
-    virtual bool acceptNavigationRequest(QWebFrame * frame, const QNetworkRequest & request, NavigationType type);
+        Q_OBJECT
+    public:
+        explicit WebPage(QObject *parent = 0);
+        ~WebPage();
+    protected:
+        virtual bool acceptNavigationRequest(QWebFrame *frame, const QNetworkRequest &request, NavigationType type);
 };
 
 #endif // WEBPAGE_H

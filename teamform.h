@@ -3,24 +3,25 @@
 
 #include <QWidget>
 
-namespace Ui {
-class TeamForm;
+namespace Ui
+{
+    class TeamForm;
 }
 
 class TeamForm : public QWidget
 {
-    Q_OBJECT
+        Q_OBJECT
 
-public:
-    explicit TeamForm(QWidget *parent = 0);
-    ~TeamForm();
+    public:
+        explicit TeamForm(QWidget *parent = 0);
+        ~TeamForm();
 
-private slots:
-    void onTextChanged(QString text);
-    void onClick();
+    private slots:
+        void onTextChanged(QString text);
+        void onClick();
 
-private:
-    Ui::TeamForm *ui;
+    private:
+        Ui::TeamForm *ui;
 };
 
 #endif // TEAMFORM_H

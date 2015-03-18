@@ -5,18 +5,20 @@
 int main(int argc, char *argv[])
 {
     Q_INIT_RESOURCE(icons);
-
     MainApplication a(argc, argv);
     a.setWindowIcon(QIcon(QString("://images/png/icon32.png")));
-
     QSettings settings;
     QVariant team_domain = settings.value("team_domain");
-    if (team_domain.isValid()){
+
+    if (team_domain.isValid())
+    {
         qDebug() << "team_domain:" << team_domain;
         a.getMainWindow()->show();
-    } else{
+    }
+    else
+    {
         qDebug() << "no team_domain specified";
-        TeamForm* teamform = new TeamForm();
+        TeamForm *teamform = new TeamForm();
         teamform->show();
     }
 

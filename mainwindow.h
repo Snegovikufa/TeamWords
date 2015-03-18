@@ -23,43 +23,44 @@ class NetworkAccessManager;
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
+        Q_OBJECT
 
-public:
-    explicit MainWindow(QWidget *parent = 0);
+    public:
+        explicit MainWindow(QWidget *parent = 0);
 
-    virtual void showEvent(QShowEvent *event)  override;
-    virtual void hideEvent(QHideEvent *event)  override;
-    virtual void closeEvent(QCloseEvent *event) override;
+        virtual void showEvent(QShowEvent *event)  override;
+        virtual void hideEvent(QHideEvent *event)  override;
+        virtual void closeEvent(QCloseEvent *event) override;
+        virtual void keyPressEvent(QKeyEvent *event) override;
 
-    void showNotification(QString title, QString message);
+        void showNotification(QString title, QString message);
 
-    ~MainWindow();
+        ~MainWindow();
 
 
-public slots:
-    void featureRequest(QWebFrame *frame, QWebPage::Feature feature);
-    void trayActivated(QSystemTrayIcon::ActivationReason reason);
-    void onUrlChanged(QUrl url);
+    public slots:
+        void featureRequest(QWebFrame *frame, QWebPage::Feature feature);
+        void trayActivated(QSystemTrayIcon::ActivationReason reason);
+        void onUrlChanged(QUrl url);
 
-private:
-    WebView *webView;
-    AsemanNativeNotification *notification;
+    private:
+        WebView *webView;
+        AsemanNativeNotification *notification;
 
 #ifdef Q_OS_WIN32
-    QWinTaskbarButton *button;
+        QWinTaskbarButton *button;
 #endif
 
-    QSystemTrayIcon *trayIcon;
+        QSystemTrayIcon *trayIcon;
 
-    const QString teamLoginUrl = QString("https://%1.slack.com");
-    const QString loginUrl = QString("https://slack.com/signin");
+        const QString teamLoginUrl = QString("https://%1.slack.com");
+        const QString loginUrl = QString("https://slack.com/signin");
 
-    void createTray();
-    void setIcons();
-    void setUrl();
-    void createWebView();
-    void readSettings();
+        void createTray();
+        void setIcons();
+        void setUrl();
+        void createWebView();
+        void readSettings();
 };
 
 #endif // MAINWINDOW_H

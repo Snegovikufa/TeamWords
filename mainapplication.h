@@ -8,19 +8,19 @@
 
 class MainApplication : public QApplication
 {
-    Q_OBJECT
+        Q_OBJECT
 
-public:
-    explicit MainApplication(int &argc, char** argv);
+    public:
+        explicit MainApplication(int &argc, char **argv);
 
-    void setMainWindow(MainWindow* window);
-    MainWindow* getMainWindow();
+        void setMainWindow(MainWindow *window);
+        MainWindow *getMainWindow();
 
-    void showNotification(QString title, QString message);
+        void showNotification(QString title, QString message);
 
-    ~MainApplication();
-private:
-    MainWindow *m_window = 0;
+        ~MainApplication();
+    private:
+        MainWindow *m_window = 0;
 };
 
 #endif // MAINAPPLICATION_H
