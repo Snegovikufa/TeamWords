@@ -1,6 +1,7 @@
 # Slacker
 
-Slacker is unofficial cross-platform desktop client for Slack
+Slacker is unofficial cross-platform desktop client for Slack.
+Slacker is not created by, affiliated with, or supported by Slack Technologies, Inc.
 
 ## Features
 
