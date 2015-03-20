@@ -31,7 +31,6 @@ class MainWindow : public QMainWindow
         virtual void showEvent(QShowEvent *event)  override;
         virtual void hideEvent(QHideEvent *event)  override;
         virtual void closeEvent(QCloseEvent *event) override;
-        virtual void keyPressEvent(QKeyEvent *event) override;
 
         void showNotification(QString title, QString message);
 

@@ -155,8 +155,3 @@ void MainWindow::closeEvent(QCloseEvent *event)
     trayIcon->hide();
     QMainWindow::closeEvent(event);
 }
-
-void MainWindow::keyPressEvent(QKeyEvent *event)
-{
-    QMainWindow::keyPressEvent(event);
-}
