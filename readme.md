@@ -17,3 +17,7 @@ See screenshots at http://slacker.mit-ufa.com/screenshots.html
 ## License
 
 Slacker project use LGPL v3.0 license for code.
+
+## Slack released Windows version of their software:
+
+![Download links](http://i.imgur.com/MPpI7zS.png)
