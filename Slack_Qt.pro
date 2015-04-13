@@ -20,7 +20,7 @@ win32 {
     QT += winextras
 }
 
-TARGET = slacker
+TARGET = teamwords
 TEMPLATE = app
 CONFIG += c++11
 

@@ -1,7 +1,7 @@
-# Slacker
+# TeamWords
 
-Slacker is unofficial cross-platform desktop client for Slack.
-Slacker is not created by, affiliated with, or supported by Slack Technologies, Inc.
+TeamWords is unofficial cross-platform desktop client for Slack.
+TeamWords is not created by, affiliated with, or supported by Slack Technologies, Inc.
 
 ## Features
 
@@ -11,13 +11,9 @@ Slacker is not created by, affiliated with, or supported by Slack Technologies, 
 * Supports Drag'n'Drop
 * Glows taskbar icon when some notification received
 
-## Screenshots
-
-See screenshots at http://slacker.mit-ufa.com/screenshots.html
-
 ## License
 
-Slacker project use LGPL v3.0 license for code.
+TeamWords project use LGPL v3.0 license for code.
 
 ## Slack released Windows version of their software:
 
