@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QtWebKitWidgets>
 #include <QSystemTrayIcon>
+#include <QAction>
 #include <QWebNotificationData>
 #include <QtNetwork/QNetworkAccessManager>
 #include "qwebkitplatformplugin.h"
@@ -41,25 +42,34 @@ class MainWindow : public QMainWindow
         void featureRequest(QWebFrame *frame, QWebPage::Feature feature);
         void trayActivated(QSystemTrayIcon::ActivationReason reason);
         void onUrlChanged(QUrl url);
+        void hideOnCloseChanged(bool value);
+        void realClose();
 
     private:
         WebView *webView;
         AsemanNativeNotification *notification;
+        bool hideOnClose;
+        bool userWantsToClose;
 
 #ifdef Q_OS_WIN32
         QWinTaskbarButton *button;
 #endif
 
         QSystemTrayIcon *trayIcon;
+        QMenu *trayIconMenu;
+        QAction *hideOnCloseAction;
+        QAction *closeAction;
 
         const QString teamLoginUrl = QString("https://%1.slack.com");
         const QString loginUrl = QString("https://slack.com/signin");
 
+        void createActions();
         void createTray();
         void setIcons();
         void setUrl();
         void createWebView();
         void readSettings();
+        void saveSettings();
 };
 
 #endif // MAINWINDOW_H

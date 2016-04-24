@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     createWebView();
     setUrl();
+    createActions();
     createTray();
     setIcons();
 #ifdef Q_OS_WIN32
@@ -38,6 +39,9 @@ void MainWindow::readSettings()
     QSettings settings;
     restoreGeometry(settings.value("mainwindow/geometry").toByteArray());
     restoreState(settings.value("mainwindow/windowState").toByteArray());
+
+    hideOnClose = settings.value("mainwindow/hideonclose").toBool();
+    hideOnCloseAction->setChecked(hideOnClose);
 }
 
 void MainWindow::createWebView()
@@ -56,7 +60,13 @@ void MainWindow::createWebView()
 
 void MainWindow::createTray()
 {
+    trayIconMenu = new QMenu(this);
+    trayIconMenu->addAction(hideOnCloseAction);
+    trayIconMenu->addSeparator();
+    trayIconMenu->addAction(closeAction);
+
     trayIcon = new QSystemTrayIcon(QIcon(QString("://images/png/icon32.png")), this);
+    trayIcon->setContextMenu(trayIconMenu);
     trayIcon->show();
     connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
             this, SLOT(trayActivated(QSystemTrayIcon::ActivationReason)));
@@ -91,6 +101,19 @@ void MainWindow::onUrlChanged(QUrl url)
         webView->page()->setFeaturePermission(webView->page()->mainFrame(), QWebPage::Feature::Notifications,
                                               QWebPage::PermissionPolicy::PermissionGrantedByUser);
     }
+}
+
+void MainWindow::hideOnCloseChanged(bool value)
+{
+    hideOnClose = value;
+    QSettings settings;
+    settings.setValue("mainwindow/hideonclose", hideOnClose);
+}
+
+void MainWindow::realClose()
+{
+    userWantsToClose = true;
+    close();
 }
 
 void MainWindow::featureRequest(QWebFrame *frame, QWebPage::Feature feature)
@@ -131,6 +154,16 @@ void MainWindow::trayActivated(QSystemTrayIcon::ActivationReason reason)
     }
 }
 
+void MainWindow::createActions()
+{
+    hideOnCloseAction = new QAction(tr("Hide on close"), this);
+    hideOnCloseAction->setCheckable(true);
+    connect(hideOnCloseAction, SIGNAL(toggled(bool)), this, SLOT(hideOnCloseChanged(bool)));
+
+    closeAction = new QAction(tr("Close"), this);
+    connect(closeAction, SIGNAL(triggered(bool)), this, SLOT(realClose()));
+}
+
 void MainWindow::showNotification(QString title, QString message)
 {
     notification->sendNotify(title, message, "://images/png/Slack.png", 0, 100000);
@@ -147,11 +180,35 @@ void MainWindow::showEvent(QShowEvent *event)
     QMainWindow::showEvent(event);
 }
 
-void MainWindow::closeEvent(QCloseEvent *event)
+void MainWindow::saveSettings()
 {
     QSettings settings;
     settings.setValue("mainwindow/geometry", saveGeometry());
     settings.setValue("mainwindow/windowState", saveState());
-    trayIcon->hide();
-    QMainWindow::closeEvent(event);
+    settings.setValue("mainwindow/hideonclose", hideOnClose);
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    if (hideOnClose)
+    {
+        if (userWantsToClose)
+        {
+            saveSettings();
+            trayIcon->hide();
+            QMainWindow::closeEvent(event);
+        }
+        else
+        {
+            qDebug() << "User doesn't want to close";
+            event->ignore();
+            QMainWindow::hide();
+        }
+    }
+    else
+    {
+        saveSettings();
+        trayIcon->hide();
+        QMainWindow::closeEvent(event);
+    }
 }
