@@ -36,6 +36,6 @@ void NotificationPresenter::showNotification(const QWebNotificationData* data)
     qDebug() << data->title();
     qDebug() << "Message:";
     qDebug() << data->message();
-    mApp->showNotification(data->title(), data->message());
+    MainApplication::instance()->showNotification(data->title(), data->message());
     qDebug() << data->iconUrl();
 }

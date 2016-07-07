@@ -10,8 +10,11 @@
 #include <QMessageBox>
 #include <QVBoxLayout>
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent)
+#include "applicationsettings.h"
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , userWantsToClose(false)
 {
     createWebView();
     setUrl();
@@ -36,12 +39,13 @@ void MainWindow::readSettings()
     QRect rec = QApplication::desktop()->screenGeometry();
     this->resize(rec.width() * 0.75, rec.height() * 0.75);
     this->setMinimumSize(600, 300);
-    QSettings settings;
-    restoreGeometry(settings.value("mainwindow/geometry").toByteArray());
-    restoreState(settings.value("mainwindow/windowState").toByteArray());
-
-    hideOnClose = settings.value("mainwindow/hideonclose").toBool();
+    ApplicationSettings *settings = ApplicationSettings::instance();
+    restoreGeometry(settings->getMainWindowGeometry());
+    restoreState(settings->getMainWindowState());
+    bool hideOnClose = settings->getHideOnClose();
     hideOnCloseAction->setChecked(hideOnClose);
+    bool startHidden = settings->getStartHidden();
+    startHiddenAction->setChecked(startHidden);
 }
 
 void MainWindow::createWebView()
@@ -62,9 +66,9 @@ void MainWindow::createTray()
 {
     trayIconMenu = new QMenu(this);
     trayIconMenu->addAction(hideOnCloseAction);
+    trayIconMenu->addAction(startHiddenAction);
     trayIconMenu->addSeparator();
-    trayIconMenu->addAction(closeAction);
-
+    trayIconMenu->addAction(exitAction);
     trayIcon = new QSystemTrayIcon(QIcon(QString("://images/png/icon32.png")), this);
     trayIcon->setContextMenu(trayIconMenu);
     trayIcon->show();
@@ -79,13 +83,12 @@ void MainWindow::setIcons()
 
 void MainWindow::setUrl()
 {
-    QSettings settings;
-    QVariant value = settings.value("team_domain");
+    QString teamDomain = ApplicationSettings::instance()->getTeamDomain();
     QUrl url(loginUrl);
 
-    if (value.isValid())
+    if (!teamDomain.isEmpty())
     {
-        url = QUrl(teamLoginUrl.arg(value.toString()));
+        url = QUrl(teamLoginUrl.arg(teamDomain));
     }
 
     qDebug() << "Team login URL: " << url;
@@ -105,9 +108,12 @@ void MainWindow::onUrlChanged(QUrl url)
 
 void MainWindow::hideOnCloseChanged(bool value)
 {
-    hideOnClose = value;
-    QSettings settings;
-    settings.setValue("mainwindow/hideonclose", hideOnClose);
+    ApplicationSettings::instance()->setHideOnClose(value);
+}
+
+void MainWindow::startHiddenChanged(bool value)
+{
+    ApplicationSettings::instance()->setStartHidden(value);
 }
 
 void MainWindow::realClose()
@@ -159,9 +165,11 @@ void MainWindow::createActions()
     hideOnCloseAction = new QAction(tr("Hide on close"), this);
     hideOnCloseAction->setCheckable(true);
     connect(hideOnCloseAction, SIGNAL(toggled(bool)), this, SLOT(hideOnCloseChanged(bool)));
-
-    closeAction = new QAction(tr("Close"), this);
-    connect(closeAction, SIGNAL(triggered(bool)), this, SLOT(realClose()));
+    startHiddenAction = new QAction(tr("Start hidden"), this);
+    startHiddenAction->setCheckable(true);
+    connect(startHiddenAction, SIGNAL(toggled(bool)), this, SLOT(startHiddenChanged(bool)));
+    exitAction = new QAction(tr("Exit"), this);
+    connect(exitAction, SIGNAL(triggered(bool)), this, SLOT(realClose()));
 }
 
 void MainWindow::showNotification(QString title, QString message)
@@ -182,15 +190,14 @@ void MainWindow::showEvent(QShowEvent *event)
 
 void MainWindow::saveSettings()
 {
-    QSettings settings;
-    settings.setValue("mainwindow/geometry", saveGeometry());
-    settings.setValue("mainwindow/windowState", saveState());
-    settings.setValue("mainwindow/hideonclose", hideOnClose);
+    ApplicationSettings *settings = ApplicationSettings::instance();
+    settings->setMainWindowGeometry(saveGeometry());
+    settings->setMainWindowState(saveState());
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    if (hideOnClose)
+    if (ApplicationSettings::instance()->getHideOnClose())
     {
         if (userWantsToClose)
         {

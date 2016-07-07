@@ -4,14 +4,17 @@
 #include <QApplication>
 #include "mainwindow.h"
 
-#define mApp ((MainApplication*)MainApplication::instance())
-
 class MainApplication : public QApplication
 {
         Q_OBJECT
 
     public:
         explicit MainApplication(int &argc, char **argv);
+
+        inline static MainApplication *instance()
+        {
+            return static_cast<MainApplication *>(QApplication::instance());
+        }
 
         void setMainWindow(MainWindow *window);
         MainWindow *getMainWindow();

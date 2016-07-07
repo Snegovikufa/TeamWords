@@ -34,7 +34,8 @@ SOURCES += main.cpp\
     autosaver.cpp \
     teamform.cpp \
     webview.cpp \
-    webpage.cpp
+    webpage.cpp \
+    applicationsettings.cpp
 
 HEADERS  += mainwindow.h \
     mainapplication.h \
@@ -42,7 +43,8 @@ HEADERS  += mainwindow.h \
     autosaver.h \
     teamform.h \
     webview.h \
-    webpage.h
+    webpage.h \
+    applicationsettings.h
 
 FORMS    += mainwindow.ui \
     teamform.ui
