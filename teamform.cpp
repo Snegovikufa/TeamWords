@@ -1,7 +1,7 @@
 #include "teamform.h"
 #include "ui_teamform.h"
-#include <QSettings>
 #include "mainapplication.h"
+#include "applicationsettings.h"
 
 TeamForm::TeamForm(QWidget *parent) :
     QWidget(parent),
@@ -33,8 +33,7 @@ void TeamForm::onTextChanged(QString text)
 
 void TeamForm::onClick()
 {
-    QSettings settings;
-    settings.setValue("team_domain", ui->lineEdit->text());
-    ((MainApplication *) mApp->instance())->getMainWindow()->show();
+    ApplicationSettings::instance()->setTeamDomain(ui->lineEdit->text());
+    MainApplication::instance()->getMainWindow()->show();
     close();
 }

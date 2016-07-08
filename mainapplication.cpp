@@ -15,11 +15,6 @@ void MainApplication::setMainWindow(MainWindow *window)
 
 MainWindow *MainApplication::getMainWindow()
 {
-    if (!m_window)
-    {
-        m_window = new MainWindow();
-    }
-
     return m_window;
 }
 
