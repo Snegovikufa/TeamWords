@@ -68,6 +68,8 @@ void MainWindow::createTray()
     trayIconMenu->addAction(hideOnCloseAction);
     trayIconMenu->addAction(startHiddenAction);
     trayIconMenu->addSeparator();
+    trayIconMenu->addAction(reloadAction);
+    trayIconMenu->addSeparator();
     trayIconMenu->addAction(exitAction);
     trayIcon = new QSystemTrayIcon(QIcon(QString("://images/png/icon32.png")), this);
     trayIcon->setContextMenu(trayIconMenu);
@@ -122,6 +124,11 @@ void MainWindow::realClose()
     close();
 }
 
+void MainWindow::reload()
+{
+    webView->reload();
+}
+
 void MainWindow::featureRequest(QWebFrame *frame, QWebPage::Feature feature)
 {
     qDebug() << frame->url();
@@ -168,6 +175,8 @@ void MainWindow::createActions()
     startHiddenAction = new QAction(tr("Start hidden"), this);
     startHiddenAction->setCheckable(true);
     connect(startHiddenAction, SIGNAL(toggled(bool)), this, SLOT(startHiddenChanged(bool)));
+    reloadAction = new QAction(tr("Reload"), this);
+    connect(reloadAction, SIGNAL(triggered()), this, SLOT(reload()));
     exitAction = new QAction(tr("Exit"), this);
     connect(exitAction, SIGNAL(triggered(bool)), this, SLOT(realClose()));
 }

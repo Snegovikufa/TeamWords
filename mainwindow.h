@@ -44,6 +44,7 @@ class MainWindow : public QMainWindow
         void hideOnCloseChanged(bool value);
         void startHiddenChanged(bool value);
         void realClose();
+        void reload();
 
     private:
         WebView *webView;
@@ -58,6 +59,7 @@ class MainWindow : public QMainWindow
         QMenu *trayIconMenu;
         QAction *hideOnCloseAction;
         QAction *startHiddenAction;
+        QAction *reloadAction;
         QAction *exitAction;
 
         const QString teamLoginUrl = QString("https://%1.slack.com");
