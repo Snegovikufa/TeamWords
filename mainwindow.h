@@ -45,6 +45,7 @@ class MainWindow : public QMainWindow
         void startHiddenChanged(bool value);
         void realClose();
         void reload();
+        void notifyAction(uint id, const QString &action);
 
     private:
         WebView *webView;

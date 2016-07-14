@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
     button->setOverlayIcon(QIcon("://images/png/Slack.png"));
 #endif
     notification = new AsemanNativeNotification(this);
+    connect(notification, SIGNAL(notifyAction(uint, const QString &)), SLOT(notifyAction(uint, const QString &)));
     readSettings();
 }
 
@@ -129,6 +130,15 @@ void MainWindow::reload()
     webView->reload();
 }
 
+void MainWindow::notifyAction(uint id, const QString &action)
+{
+    if (action == "show")
+    {
+        if (isHidden())
+            show();
+    }
+}
+
 void MainWindow::featureRequest(QWebFrame *frame, QWebPage::Feature feature)
 {
     qDebug() << frame->url();
@@ -183,7 +193,7 @@ void MainWindow::createActions()
 
 void MainWindow::showNotification(QString title, QString message)
 {
-    notification->sendNotify(title, message, "://images/png/Slack.png", 0, 100000);
+    notification->sendNotify(title, message, "://images/png/Slack.png", 0, 100000, QStringList() << "show" << tr("Show"));
     QApplication::alert(this);
 }
 
